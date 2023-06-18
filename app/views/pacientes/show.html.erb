@@ -16,6 +16,24 @@
   <p>Nenhum endereço encontrado.</p>
 <% end %>
 
+<h2>Consultas Agendadas</h2>
+<% if @paciente.consultas.any? %>
+  <ul>
+    <% @paciente.consultas.each do |consulta| %>
+      <li>
+        <%= consulta.data_hora.strftime("%d/%m/%Y %H:%M") %> - <%= consulta.medico.nome_completo %>
+        <%= link_to 'Cancelar', consulta_path(consulta), method: :delete, data: { confirm: 'Deseja cancelar essa consulta?' } %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>Nenhuma consulta agendada.</p>
+<% end %>
+
+<div class="actions">
+  <%= link_to 'Agendar Consulta', new_consulta_path(paciente_id: @paciente.id), class: 'btn btn-primary' %>
+</div>
+
 <%= link_to 'Editar', edit_paciente_path(@paciente), class: 'btn btn-danger' %> |
 <%= button_to 'Apagar', paciente_path(@paciente), method: :delete, class: 'btn btn-danger' %>
 <%= link_to 'Voltar', pacientes_path, class: 'btn btn-danger' %>

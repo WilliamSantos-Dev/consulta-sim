@@ -1,0 +1,2 @@
+module MedicoHelper
+end

@@ -1,0 +1,8 @@
+<h1>Detalhes da Consulta</h1>
+
+<p><strong>Data e Hora:</strong> <%= @consulta.data_hora %></p>
+<p><strong>Paciente:</strong> <%= @consulta.paciente.nome_completo %></p>
+<p><strong>Médico:</strong> <%= @consulta.medico.nome_completo %></p>
+
+<%= link_to 'Editar', edit_consulta_path(@consulta) %>
+<%= link_to 'Voltar', consultas_path %>

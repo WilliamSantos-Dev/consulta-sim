@@ -1,0 +1,24 @@
+<h1>Lista de Consultas</h1>
+
+<table>
+  <thead>
+  <tr>
+    <th>Data e Hora</th>
+    <th>Paciente</th>
+    <th>Médico</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @consultas.each do |consulta| %>
+    <tr>
+      <td><%= consulta.data_hora %></td>
+      <td><%= consulta.paciente.nome_completo %></td>
+      <td><%= consulta.medico.nome_completo %></td>
+      <td><%= link_to 'Ver Detalhes', consulta_path(consulta) %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Agendar Consulta', new_consulta_path %>

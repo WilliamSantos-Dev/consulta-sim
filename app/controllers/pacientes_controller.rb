@@ -44,6 +44,10 @@ class PacientesController < ApplicationController
     @paciente = Paciente.find(params[:id])
   end
 
+  def new_consulta
+    @consulta = Consulta.new
+  end
+
   def paciente_params
     params.require(:paciente).permit(:nome_completo, :data_nascimento, :cpf, :email, endereco_attributes: [:cep, :cidade, :bairro, :logradouro, :complemento])
   end
