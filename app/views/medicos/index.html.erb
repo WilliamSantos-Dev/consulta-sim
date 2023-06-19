@@ -62,10 +62,8 @@
       <td><%= medico.email %></td>
       <td><%= medico.especialidade %></td>
       <td><%= medico.crm %></td>
-      <td><%= link_to 'Visualizar', medico, class: 'btn btn-primary' %></td>
-      <td><%= link_to 'Editar', edit_medico_path(medico), class: 'btn btn-primary' %></td>
-      <td><%= link_to 'Remover', medico, method: :delete, data: { confirm: 'Tem certeza?' }, class: 'btn btn-danger' %></td>
-    </tr>
+      <td><%= link_to 'Acessar', medico, class: 'btn btn-primary' %></td>
+     </tr>
   <% end %>
   </tbody>
 </table>
