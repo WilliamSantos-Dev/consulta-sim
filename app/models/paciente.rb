@@ -3,16 +3,12 @@ class Paciente < ApplicationRecord
   accepts_nested_attributes_for :endereco
   has_many :consultas
 
-  validates :nome_completo, presence: true
-  validates :data_nascimento, presence: true
-  validates :cpf, presence: true, uniqueness: true, format: { with: /\A\d{11}\z/, message: "deve conter apenas números e ter 11 dígitos" }
-  validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP, message: "deve ser um e-mail válido" }
-
-  validate :validar_data_nascimento
-
+  validate :data_nascimento_maior_hoje
+  validates :nome_completo, presence: true, length: { minimum: 10 }
+  validates :cpf, presence: true, uniqueness: true, format: { with: /\A\d{11}\z/, message: 'deve conter apenas números e ter 11 dígitos' }
+  validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP, message: 'deve ser um endereço de e-mail válido' }
   private
-
-  def validar_data_nascimento
-    errors.add(:data_nascimento, "não pode ser maior que a data atual") if data_nascimento.present? && data_nascimento > Date.current
+  def data_nascimento_maior_hoje
+    errors.add(:data_nascimento, "não pode ser maior que a data de hoje") if data_nascimento.present? && data_nascimento > Date.current
   end
 end
