@@ -1,4 +1,6 @@
-<h1>Listagem de Pacientes</h1>
+<link rel="stylesheet" type="text/css" href="style.css">
+
+<h1>Todos os Pacientes</h1>
 
 <ul>
   <% @pacientes.each do |paciente| %>
@@ -8,4 +10,4 @@
   <% end %>
 </ul>
 
-<%= link_to 'Novo Paciente', new_paciente_path %>
+<%= link_to 'Voltar', root_path %>

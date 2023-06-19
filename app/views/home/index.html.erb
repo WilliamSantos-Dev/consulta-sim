@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Consulta Sim - Home</title>
+</head>
+<body>
+
+<h2>Bem-vindo(a) à Consulta Sim</h2>
+
+<div class="container">
+  <div class="box">
+    <h3>Médico</h3>
+    <div class="button-container">
+      <a href="<%= new_medico_path %>">Acessar</a>
+      <a href="<%= new_medico_path %>">Novo médico</a>
+      <a href="<%= medicos_path %>">Ver todos os médicos</a>
+
+    </div>
+  </div>
+
+  <div class="box">
+    <h3>Paciente</h3>
+    <div class="button-container">
+      <%= link_to 'Acessar', acessar_paciente_path %>
+      <%= link_to 'Novo Paciente', new_paciente_path %>
+      <a href="<%= pacientes_path %>">Ver todos os pacientes</a>
+    </div>
+  </div>
+  <div class="box">
+    <h3>Consultas</h3>
+    <div class="button-container">
+      <a href="<%= consultas_path %>">Ver todas as consultas</a>
+    </div>
+  </div>
+</div>
+</body>
+</html>
