@@ -14,14 +14,16 @@ class MedicosController < ApplicationController
 
   def create
     @medico = Medico.new(medico_params)
-    if @medico.save
-      redirect_to @medico, notice: 'Médico criado com sucesso.'
-    else
-      render :new
-    end
-  end
 
-  def edit
+    respond_to do |format|
+      if @medico.save
+        format.html { redirect_to medico_url(@medico), notice: "Medico was successfully created." }
+        format.json { render :show, status: :created, location: @medico }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @medico.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def update
