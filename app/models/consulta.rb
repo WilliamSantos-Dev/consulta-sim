@@ -8,6 +8,6 @@ class Consulta < ApplicationRecord
   private
 
   def validar_data_hora
-    errors.add(:data_hora, "não pode estar no passado") if data_hora.present? && data_hora < DateTime.current
+    errors.add(:data_hora, "Não pode agendar consultas no passado") if data_hora.present? && data_hora < DateTime.current
   end
 end
