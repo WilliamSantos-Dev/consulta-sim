@@ -5,16 +5,6 @@ class ConsultasController < ApplicationController
 
   def create
     @consulta = Consulta.new(consulta_params)
-
-    if @consulta.save
-      redirect_to consulta_path(@consulta), notice: 'Consulta agendada com sucesso.'
-    else
-      render :new
-    end
-  end
-
-  def create
-    @consulta = Consulta.new(consulta_params)
     respond_to do |format|
       if @consulta.save
         format.html { redirect_to medico_url(@consulta), notice: "Consulta agendada!." }
