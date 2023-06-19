@@ -5,4 +5,4 @@
 <p><strong>Médico:</strong> <%= @consulta.medico.nome_completo %></p>
 
 <%= link_to 'Editar', edit_consulta_path(@consulta) %>
-<%= link_to 'Voltar', consultas_path %>
+<%= link_to 'Voltar', paciente_path(@consulta.paciente) %>

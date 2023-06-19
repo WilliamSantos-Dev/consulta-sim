@@ -1,16 +1,44 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Untitled</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title>Untitled</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
-  </head>
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= javascript_importmap_tags %>
+  <style>
+      .home-bar {
+          background-color: #007bff;
+          color: #fff;
+          padding: 10px;
+          margin: 0;
+          text-align: center;
+          border: none;
+      }
 
-  <body>
-    <%= yield %>
-  </body>
+      .home-bar a {
+          text-decoration: none;
+          color: #fff;
+      }
+
+      .home-bar a:hover {
+          text-decoration: underline;
+      }
+      {
+          background-color: #007bff;
+      }
+  </style>
+</head>
+
+<body>
+<div class="home-bar">
+  <%= link_to root_path do %>
+    <h1 style="margin: 0;">Consulta Sim</h1>
+  <% end %>
+</div>
+
+<%= yield %>
+</body>
 </html>

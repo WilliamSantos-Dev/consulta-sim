@@ -1,39 +1,40 @@
-<h1>Detalhes do Paciente</h1>
+<div class="container">
+  <h1>Detalhes do Paciente</h1>
 
-<p><strong>Nome Completo:</strong> <%= @paciente.nome_completo %></p>
-<p><strong>Data de Nascimento:</strong> <%= @paciente.data_nascimento %></p>
-<p><strong>CPF:</strong> <%= @paciente.cpf %></p>
-<p><strong>Email:</strong> <%= @paciente.email %></p>
+  <p><strong>Nome Completo:</strong> <%= @paciente.nome_completo %></p>
+  <p><strong>Data de Nascimento:</strong> <%= @paciente.data_nascimento %></p>
+  <p><strong>CPF:</strong> <%= @paciente.cpf %></p>
+  <p><strong>Email:</strong> <%= @paciente.email %></p>
 
-<h2>Endereço</h2>
-<% if @paciente.endereco %>
-  <p><strong>CEP:</strong> <%= @paciente.endereco.cep %></p>
-  <p><strong>Cidade:</strong> <%= @paciente.endereco.cidade %></p>
-  <p><strong>Bairro:</strong> <%= @paciente.endereco.bairro %></p>
-  <p><strong>Logradouro:</strong> <%= @paciente.endereco.logradouro %></p>
-  <p><strong>Complemento:</strong> <%= @paciente.endereco.complemento %></p>
-<% else %>
-  <p>Nenhum endereço encontrado.</p>
-<% end %>
+  <h2>Endereço</h2>
+  <% if @paciente.endereco %>
+    <p><strong>CEP:</strong> <%= @paciente.endereco.cep %></p>
+    <p><strong>Cidade:</strong> <%= @paciente.endereco.cidade %></p>
+    <p><strong>Bairro:</strong> <%= @paciente.endereco.bairro %></p>
+    <p><strong>Logradouro:</strong> <%= @paciente.endereco.logradouro %></p>
+    <p><strong>Complemento:</strong> <%= @paciente.endereco.complemento %></p>
+  <% else %>
+    <p>Nenhum endereço encontrado.</p>
+  <% end %>
 
-<h2>Consultas Agendadas</h2>
-<% if @paciente.consultas.any? %>
-  <ul>
-    <% @paciente.consultas.each do |consulta| %>
-      <li>
-        <%= consulta.data_hora.strftime("%d/%m/%Y %H:%M") %> - <%= consulta.medico.nome_completo %>
-        <%= link_to 'Cancelar', consulta_path(consulta), method: :delete, data: { confirm: 'Deseja cancelar essa consulta?' } %>
-      </li>
-    <% end %>
-  </ul>
-<% else %>
-  <p>Nenhuma consulta agendada.</p>
-<% end %>
+  <h2>Consultas Agendadas</h2>
+  <% if @paciente.consultas.any? %>
+    <ul>
+      <% @paciente.consultas.each do |consulta| %>
+        <li>
+          <%= consulta.data_hora.strftime("%d/%m/%Y %H:%M") %> - <%= consulta.medico.nome_completo %>
+          <%= link_to 'Ver mais', consulta_path(consulta), method: :delete, data: { confirm: 'Deseja cancelar essa consulta?' } %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>Nenhuma consulta agendada.</p>
+  <% end %>
 
-<div class="actions">
-  <%= link_to 'Agendar Consulta', new_consulta_path(paciente_id: @paciente.id), class: 'btn btn-primary' %>
+  <div class="actions">
+    <%= link_to 'Agendar Consulta', new_consulta_path(paciente_id: @paciente.id), class: 'btn btn-primary', style: 'display: inline-block;' %>
+    <%= link_to 'Editar', edit_paciente_path(@paciente), class: 'btn btn-danger', style: 'display: inline-block; margin-left: 10px;' %>
+    <%= link_to 'Voltar', pacientes_path, class: 'btn btn-danger', style: 'display: inline-block; margin-left: 10px;' %>
+  </div>
+
 </div>
-
-<%= link_to 'Editar', edit_paciente_path(@paciente), class: 'btn btn-danger' %> |
-<%= button_to 'Apagar', paciente_path(@paciente), method: :delete, class: 'btn btn-danger' %>
-<%= link_to 'Voltar', pacientes_path, class: 'btn btn-danger' %>
