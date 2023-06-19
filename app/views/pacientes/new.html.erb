@@ -1,57 +1,155 @@
-<h1>Novo Paciente</h1>
 
-<%= form_with(model: @paciente) do |f| %>
-  <div class="field">
-    <%= f.label :nome_completo %>
-    <%= f.text_field :nome_completo %>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Consulta Sim - Home</title>
+</head>
+<body>
+</br>
+<div class="container">
+  <div class="form-box">
+    <h3>Novo Paciente</h3>
+
+    <form id="paciente-form" action="<%= pacientes_path %>" method="post">
+      <div class="form-field">
+        <label for="paciente_nome_completo">Nome Completo:</label>
+        <input type="text" id="paciente_nome_completo" name="paciente[nome_completo]">
+        <div class="error-message" id="nome-completo-error"></div>
+      </div>
+
+      <div class="form-field">
+        <label for="paciente_data_nascimento">Data de Nascimento:</label>
+        <input type="date" id="paciente_data_nascimento" name="paciente[data_nascimento]">
+        <div class="error-message" id="data-nascimento-error"></div>
+      </div>
+
+      <div class="form-field">
+        <label for="paciente_cpf">CPF:</label>
+        <input type="text" id="paciente_cpf" name="paciente[cpf]">
+        <div class="error-message" id="cpf-error"></div>
+      </div>
+
+      <div class="form-field">
+        <label for="paciente_email">Email:</label>
+        <input type="email" id="paciente_email" name="paciente[email]">
+        <div class="error-message" id="email-error"></div>
+      </div>
+
+      <h4>Endereço</h4>
+
+      <div class="form-field">
+        <label for="endereco_cep">CEP:</label>
+        <input type="text" id="endereco_cep" name="endereco[cep]">
+        <div class="error-message" id="cep-error"></div>
+      </div>
+
+      <div class="form-field">
+        <label for="endereco_cidade">Cidade:</label>
+        <input type="text" id="endereco_cidade" name="endereco[cidade]">
+        <div class="error-message" id="cidade-error"></div>
+      </div>
+
+      <div class="form-field">
+        <label for="endereco_bairro">Bairro:</label>
+        <input type="text" id="endereco_bairro" name="endereco[bairro]">
+        <div class="error-message" id="bairro-error"></div>
+      </div>
+
+      <div class="form-field">
+        <label for="endereco_logradouro">Logradouro:</label>
+        <input type="text" id="endereco_logradouro" name="endereco[logradouro]">
+        <div class="error-message" id="logradouro-error"></div>
+      </div>
+
+      <div class="form-field">
+        <label for="endereco_complemento">Complemento:</label>
+        <input type="text" id="endereco_complemento" name="endereco[complemento]">
+      </div>
+
+      <div class="form-actions">
+        <button type="submit">Salvar</button>
+      </div>
+    </form>
+
+    <a href="<%= pacientes_path %>">Voltar</a>
   </div>
+</div>
 
-  <div class="field">
-    <%= f.label :data_nascimento %>
-    <%= f.date_field :data_nascimento %>
-  </div>
+<script>
+    function validateForm() {
+        var isValid = true;
+        var nomeCompleto = document.getElementById('paciente_nome_completo').value;
+        if (nomeCompleto.length < 10) {
+            document.getElementById('nome-completo-error').innerHTML = 'Informe o nome completo.';
+            isValid = false;
+        } else {
+            document.getElementById('nome-completo-error').innerHTML = '';
+        }
 
-  <div class="field">
-    <%= f.label :cpf %>
-    <%= f.text_field :cpf %>
-  </div>
+        var dataNascimento = document.getElementById('paciente_data_nascimento').value;
+        if (dataNascimento.length === 0) {
+            document.getElementById('data-nascimento-error').innerHTML = 'Informe a data de nascimento.';
+            isValid = false;
+        } else {
+            document.getElementById('data-nascimento-error').innerHTML = '';
+        }
 
-  <div class="field">
-    <%= f.label :email %>
-    <%= f.email_field :email %>
-  </div>
+        var cpf = document.getElementById('paciente_cpf').value;
+        if (cpf.length ==! 11) {
+            document.getElementById('cpf-error').innerHTML = 'CPF invalido.';
+            isValid = false;
+        } else {
+            document.getElementById('cpf-error').innerHTML = '';
+        }
 
-  <h2>Endereço</h2>
-  <%= f.fields_for :endereco do |endereco_fields| %>
-    <div class="field">
-      <%= endereco_fields.label :cep %>
-      <%= endereco_fields.text_field :cep %>
-    </div>
+        var email = document.getElementById('paciente_email').value;
+        if (email.length === 0) {
+            document.getElementById('email-error').innerHTML = 'email invalido.';
+            isValid = false;
+        } else {
+            document.getElementById('email-error').innerHTML = '';
+        }
 
-    <div class="field">
-      <%= endereco_fields.label :cidade %>
-      <%= endereco_fields.text_field :cidade %>
-    </div>
+        var cep = document.getElementById('endereco_cep').value;
+        if (cep.length === 0) {
+            document.getElementById('cep-error').innerHTML = 'Informe o CEP.';
+            isValid = false;
+        } else {
+            document.getElementById('cep-error').innerHTML = '';
+        }
 
-    <div class="field">
-      <%= endereco_fields.label :bairro %>
-      <%= endereco_fields.text_field :bairro %>
-    </div>
+        var cidade = document.getElementById('endereco_cidade').value;
+        if (cidade.length === 0) {
+            document.getElementById('cidade-error').innerHTML = 'Informe a cidade.';
+            isValid = false;
+        } else {
+            document.getElementById('cidade-error').innerHTML = '';
+        }
 
-    <div class="field">
-      <%= endereco_fields.label :logradouro %>
-      <%= endereco_fields.text_field :logradouro %>
-    </div>
+        var bairro = document.getElementById('endereco_bairro').value;
+        if (bairro.length === 0) {
+            document.getElementById('bairro-error').innerHTML = 'Informe o bairro.';
+            isValid = false;
+        } else {
+            document.getElementById('bairro-error').innerHTML = '';
+        }
 
-    <div class="field">
-      <%= endereco_fields.label :complemento %>
-      <%= endereco_fields.text_field :complemento %>
-    </div>
-  <% end %>
+        var logradouro = document.getElementById('endereco_logradouro').value;
+        if (logradouro.length === 0) {
+            document.getElementById('logradouro-error').innerHTML = 'Informe o logradouro.';
+            isValid = false;
+        } else {
+            document.getElementById('logradouro-error').innerHTML = '';
+        }
 
-  <div class="actions">
-    <%= f.submit 'Salvar' %>
-  </div>
-<% end %>
+        return isValid;
+    }
 
-<%= link_to 'Voltar', pacientes_path %>
+    document.getElementById('paciente-form').addEventListener('submit', function(event) {
+        if (!validateForm()) {
+            event.preventDefault();
+        }
+    });
+</script>
+</body>
+</html>

@@ -13,6 +13,11 @@ class PacientesController < ApplicationController
     @paciente.build_endereco
   end
 
+  def acessar
+    @pacientes = Paciente.all
+  end
+
+
   def create
     @paciente = Paciente.new(paciente_params)
     if @paciente.save
