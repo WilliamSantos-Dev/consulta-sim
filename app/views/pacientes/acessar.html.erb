@@ -1,0 +1,13 @@
+<link rel="stylesheet" type="text/css" href="style.css">
+
+<h1>Selecione o paciente que deseja acessar</h1>
+
+<ul>
+  <% @pacientes.each do |paciente| %>
+    <li>
+      <%= link_to paciente.nome_completo, paciente %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to 'Voltar', root_path %>
