@@ -20,12 +20,17 @@ class PacientesController < ApplicationController
 
   def create
     @paciente = Paciente.new(paciente_params)
-    if @paciente.save
-      redirect_to @paciente, notice: 'Paciente cadastrado com sucesso.'
-    else
-      render :new
-    end
+    respond_to do |format|
+      if @paciente.save
+        format.html { redirect_to medico_url(@paciente), notice: "Paciente cadastrado com sucesso!." }
+        format.json { render :show, status: :created, location: @paciente }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @paciente.errors, status: :unprocessable_entity }
+      end
+      end
   end
+
 
   def edit
   end

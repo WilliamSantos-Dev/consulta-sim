@@ -11,6 +11,17 @@
     <h3>Novo Paciente</h3>
 
     <form id="paciente-form" action="<%= pacientes_path %>" method="post">
+      <% if @paciente.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@paciente.errors.count, "erro") %> encontrados:</h2>
+
+          <ul>
+            <% @paciente.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
       <div class="form-field">
         <label for="paciente_nome_completo">Nome Completo:</label>
         <input type="text" id="paciente_nome_completo" name="paciente[nome_completo]">
@@ -36,6 +47,16 @@
       </div>
 
       <h4>Endereço</h4>
+      <% if @endereco&.errors&.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@endereco.errors.count, "erro") %> encontrados:</h2>
+          <ul>
+            <% @endereco.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
 
       <div class="form-field">
         <label for="endereco_cep">CEP:</label>
@@ -74,82 +95,5 @@
     <a href="<%= pacientes_path %>">Voltar</a>
   </div>
 </div>
-
-<script>
-    function validateForm() {
-        var isValid = true;
-        var nomeCompleto = document.getElementById('paciente_nome_completo').value;
-        if (nomeCompleto.length < 10) {
-            document.getElementById('nome-completo-error').innerHTML = 'Informe o nome completo.';
-            isValid = false;
-        } else {
-            document.getElementById('nome-completo-error').innerHTML = '';
-        }
-
-        var dataNascimento = document.getElementById('paciente_data_nascimento').value;
-        if (dataNascimento.length === 0) {
-            document.getElementById('data-nascimento-error').innerHTML = 'Informe a data de nascimento.';
-            isValid = false;
-        } else {
-            document.getElementById('data-nascimento-error').innerHTML = '';
-        }
-
-        var cpf = document.getElementById('paciente_cpf').value;
-        if (cpf.length ==! 11) {
-            document.getElementById('cpf-error').innerHTML = 'CPF invalido.';
-            isValid = false;
-        } else {
-            document.getElementById('cpf-error').innerHTML = '';
-        }
-
-        var email = document.getElementById('paciente_email').value;
-        if (email.length === 0) {
-            document.getElementById('email-error').innerHTML = 'email invalido.';
-            isValid = false;
-        } else {
-            document.getElementById('email-error').innerHTML = '';
-        }
-
-        var cep = document.getElementById('endereco_cep').value;
-        if (cep.length === 0) {
-            document.getElementById('cep-error').innerHTML = 'Informe o CEP.';
-            isValid = false;
-        } else {
-            document.getElementById('cep-error').innerHTML = '';
-        }
-
-        var cidade = document.getElementById('endereco_cidade').value;
-        if (cidade.length === 0) {
-            document.getElementById('cidade-error').innerHTML = 'Informe a cidade.';
-            isValid = false;
-        } else {
-            document.getElementById('cidade-error').innerHTML = '';
-        }
-
-        var bairro = document.getElementById('endereco_bairro').value;
-        if (bairro.length === 0) {
-            document.getElementById('bairro-error').innerHTML = 'Informe o bairro.';
-            isValid = false;
-        } else {
-            document.getElementById('bairro-error').innerHTML = '';
-        }
-
-        var logradouro = document.getElementById('endereco_logradouro').value;
-        if (logradouro.length === 0) {
-            document.getElementById('logradouro-error').innerHTML = 'Informe o logradouro.';
-            isValid = false;
-        } else {
-            document.getElementById('logradouro-error').innerHTML = '';
-        }
-
-        return isValid;
-    }
-
-    document.getElementById('paciente-form').addEventListener('submit', function(event) {
-        if (!validateForm()) {
-            event.preventDefault();
-        }
-    });
-</script>
 </body>
 </html>
