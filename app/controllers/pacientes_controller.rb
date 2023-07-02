@@ -10,7 +10,6 @@ class PacientesController < ApplicationController
 
   def new
     @paciente = Paciente.new
-    @paciente.build_endereco
   end
 
   def acessar
@@ -20,15 +19,17 @@ class PacientesController < ApplicationController
 
   def create
     @paciente = Paciente.new(paciente_params)
+    @paciente.build_endereco(endereco_params)
+
     respond_to do |format|
       if @paciente.save
-        format.html { redirect_to medico_url(@paciente), notice: "Paciente cadastrado com sucesso!." }
+        format.html { redirect_to paciente_url(@paciente), notice: "Paciente criado com sucesso." }
         format.json { render :show, status: :created, location: @paciente }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @paciente.errors, status: :unprocessable_entity }
       end
-      end
+    end
   end
 
 
@@ -36,16 +37,27 @@ class PacientesController < ApplicationController
   end
 
   def update
-    if @paciente.update(paciente_params)
-      redirect_to @paciente, notice: 'Paciente atualizado com sucesso.'
-    else
-      render :edit
+    result = @paciente.update(paciente_params)
+    result = @paciente.endereco.update(endereco_params) && result
+
+    respond_to do |format|
+      if result
+        format.html { redirect_to paciente_url(@paciente), notice: "Paciente atualizado com sucesso." }
+        format.json { render :show, status: :ok, location: @paciente }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @paciente.errors, status: :unprocessable_entity }
+      end
     end
   end
 
   def destroy
     @paciente.destroy
-    redirect_to pacientes_url, notice: 'Paciente removido com sucesso.'
+
+    respond_to do |f|
+      f.html { redirect_to pacientes_url, notice: "Paciente removido com sucesso" }
+      f.json { head :no_content }
+    end
   end
 
   private
@@ -59,6 +71,9 @@ class PacientesController < ApplicationController
   end
 
   def paciente_params
-    params.require(:paciente).permit(:nome_completo, :data_nascimento, :cpf, :email, endereco_attributes: [:cep, :cidade, :bairro, :logradouro, :complemento])
+    params.require(:paciente).permit(:nome_completo, :data_nascimento, :cpf, :email)
+  end
+  def endereco_params
+    params.require(:endereco).permit(:cep, :cidade, :bairro, :logradouro, :complemento, :paciente_id)
   end
 end

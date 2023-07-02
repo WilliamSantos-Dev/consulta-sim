@@ -5,9 +5,12 @@ class ConsultasController < ApplicationController
 
   def create
     @consulta = Consulta.new(consulta_params)
+    @paciente = consulta_params[:paciente_id]
+    @medico = consulta_params[:medico_id]
+
     respond_to do |format|
       if @consulta.save
-        format.html { redirect_to medico_url(@consulta), notice: "Consulta agendada!." }
+        format.html { redirect_to consulta_url(@consulta), notice: "Consulta criada com sucesso." }
         format.json { render :show, status: :created, location: @consulta }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -20,16 +23,19 @@ class ConsultasController < ApplicationController
   def edit
     @consulta = Consulta.find(params[:id])
   end
-
   def update
-    @consulta = Consulta.find(params[:id])
-
-    if @consulta.update(consulta_params)
-      redirect_to @consulta, notice: 'Consulta atualizada com sucesso.'
-    else
-      render :edit
+    @paciente = consulta_params[:paciente_id]
+    respond_to do |format|
+      if @consulta.update(consulta_params)
+        format.html { redirect_to consulta_url(@consulta), notice: "Consulta atualizada com sucesso." }
+        format.json { render :show, status: :ok, location: @consulta }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @consulta.errors, status: :unprocessable_entity }
+      end
     end
   end
+
 
   def show
     @consulta = Consulta.find(params[:id])
@@ -43,5 +49,13 @@ class ConsultasController < ApplicationController
 
   def consulta_params
     params.require(:consulta).permit(:data_hora, :paciente_id, :medico_id)
+  end
+
+  def paciente_params
+    params.require(:paciente).permit(:nome, :cpf, :email, :nascimento)
+  end
+
+  def medico_params
+    params.require(:medico).permit(:nome, :cpf, :email, :especialidade, :crm)
   end
 end
